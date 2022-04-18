@@ -1,6 +1,5 @@
 import Layout from "../../components/layout/layout";
 import {Avatar, Button, Card, CardContent, Container, Divider, Grid, Stack, Typography} from "@mui/material";
-import {makeStyles} from "@mui/styles";
 import {CalendarToday, Call, Edit, Mail, Person} from "@mui/icons-material";
 import Info from "../../components/shared/info";
 import {useSelector} from "react-redux";

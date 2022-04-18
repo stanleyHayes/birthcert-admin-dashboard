@@ -14,7 +14,7 @@ import {
     Typography
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {Alert, AlertTitle} from "@mui/lab";
 import {Edit} from "@mui/icons-material";
 import moment from "moment";
@@ -29,7 +29,6 @@ const BirthCertificatesPage = () => {
     });
 
     const classes = useStyles();
-    const dispatch = useDispatch();
 
 
     const {certificates, certificateLoading, certificateError} = useSelector(selectCertificate);

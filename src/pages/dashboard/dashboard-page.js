@@ -17,7 +17,6 @@ const DashboardPage = () => {
 
     return (
         <Layout>
-            {}
             <Container className={classes.container}>
                 <Stack direction="column" spacing={4}>
                     <Box>
