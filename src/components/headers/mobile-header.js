@@ -3,7 +3,7 @@ import {Menu} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
 import {useDispatch} from "react-redux";
-import UI_ACTION_CREATORS from "../../redux/ui/ui-action-creators";
+import {UI_ACTION_CREATORS} from "../../redux/ui/ui-action-creators";
 
 const MobileHeader = () => {
 
@@ -24,12 +24,12 @@ const MobileHeader = () => {
                 <Grid item={true}>
                     <Menu
                         sx={{color: 'secondary.main'}}
-                        onClick={() => dispatch(UI_ACTION_CREATORS.closeDrawer())} />
+                        onClick={() => dispatch(UI_ACTION_CREATORS.openSidebar())} />
                 </Grid>
                 <Grid item={true}>
                     <Link to="/" className={classes.link}>
-                        <Typography sx={{color: 'secondary.main'}} variant="h6">
-                            Aiden Trust
+                        <Typography sx={{color: 'secondary.main'}} variant="body2">
+                            Birth & Death Registry
                         </Typography>
                     </Link>
                 </Grid>

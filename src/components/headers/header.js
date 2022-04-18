@@ -5,7 +5,7 @@ import MobileHeader from "./mobile-header";
 const Header = () => {
 
     return (
-        <AppBar variant="elevation" elevation={0} color="primary">
+        <AppBar variant="outlined" elevation={0} color="primary">
             <Hidden mdDown={true}>
                 <DesktopHeader/>
             </Hidden>

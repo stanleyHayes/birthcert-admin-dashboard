@@ -10,7 +10,7 @@ const MobileDrawer = () => {
     return (
         <Box py={2} sx={{minWidth: '60vw'}}>
             <Stack mb={2} direction="column" ml={4}>
-                <Typography color="primary" variant="h6">e-BCert</Typography>
+                <Typography color="primary" variant="body2">Birth & Death Registry</Typography>
             </Stack>
             <Divider orientation="horizontal" light={true} variant="middle"/>
             <Stack mt={2} direction="column" spacing={1} ml={4}>

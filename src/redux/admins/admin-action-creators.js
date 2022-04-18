@@ -31,7 +31,7 @@ const getAdmins = token => {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                url: `${CONSTANTS.SERVER_BASE_URL}/api/v1/admin/admins/`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/admins/`,
             });
             const {data, count} = response.data;
             dispatch(getAdminsSuccess(data, count));
@@ -72,7 +72,7 @@ const getAdmin = (token, id) => {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                url: `${CONSTANTS.SERVER_BASE_URL}/api/v1/admin/admins/${id}`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/admins/${id}`,
             });
             const {data} = response.data;
             dispatch(getAdminSuccess(data));
@@ -110,7 +110,7 @@ const updateAdmin = (token, id, admin) => {
             dispatch(updateAdminRequest());
             const response = await axios({
                 method: 'PUT',
-                url: `${CONSTANTS.SERVER_BASE_URL}/api/v1/admin/admin/${id}`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/admins/${id}`,
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
@@ -155,7 +155,7 @@ const createAdmin = token => {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                url: `${CONSTANTS.SERVER_BASE_URL}/api/v1/admins/payments/`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/payments/`,
             });
             const {data} = response.data;
             dispatch(createAdminSuccess(data));
@@ -193,7 +193,7 @@ const blockAdmin = (token, id, payment) => {
             dispatch(blockAdminRequest());
             const response = await axios({
                 method: 'PUT',
-                url: `${CONSTANTS.SERVER_BASE_URL}/api/v1/admin/admins/${id}`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/admins/${id}`,
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },

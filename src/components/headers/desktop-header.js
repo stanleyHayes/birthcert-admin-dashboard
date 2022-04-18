@@ -3,6 +3,8 @@ import {makeStyles} from "@mui/styles";
 import {Link} from "react-router-dom";
 import {KeyboardArrowDown} from "@mui/icons-material";
 import {useState} from "react";
+import {useSelector} from "react-redux";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const DesktopHeader = () => {
 
@@ -31,6 +33,8 @@ const DesktopHeader = () => {
         else return `${names[0][0]}${names[1][0]}`
     }
 
+    const {authData} = useSelector(selectAuth);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -45,14 +49,13 @@ const DesktopHeader = () => {
     }
 
     return (
-        <Toolbar variant="regular"
-                 sx={{borderBottomWidth: 1, borderBottomStyle: 'solid', borderBottomColor: '#e5e5e5'}}>
+        <Toolbar variant="regular">
             <Container>
                 <Grid container={true} alignItems="center" justifyContent="space-around">
                     <Grid item={true} lg={3}>
                         <Link to="/" className={classes.link}>
-                            <Typography sx={{color: 'text.primary'}} variant="h4">
-                                Windy Craft
+                            <Typography sx={{color: 'secondary.main'}} variant="h5">
+                                Birth & Death Registry
                             </Typography>
                         </Link>
                     </Grid>
@@ -66,11 +69,11 @@ const DesktopHeader = () => {
                                     borderColor: 'secondary.main',
                                     backgroundColor: 'primary.main'
                                 }}
-                                variant="rounded">
+                                variant="circular">
                                 <Typography
                                     sx={{fontWeight: 'bold', color: 'secondary.main'}}
                                     variant="body1">
-                                    {getInitials("Stanley Hayford")}
+                                    {getInitials(authData.name)}
                                 </Typography>
                             </Avatar>
                         </Grid>

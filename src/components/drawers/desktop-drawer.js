@@ -1,105 +1,146 @@
-import {Box, Divider, Stack, Typography} from "@mui/material";
+import {Box, Button, Container, Divider, Stack, Typography} from "@mui/material";
 import SidebarLink from "../shared/sidebar-link";
 import {useLocation} from "react-router";
 import {
+    Apartment,
+    ApartmentOutlined,
+    Business,
+    BusinessOutlined,
+    CorporateFare,
+    CorporateFareOutlined,
     Dashboard,
-    DashboardOutlined, DriveFileMove, DriveFileMoveOutlined,
+    DashboardOutlined,
+    Edit,
+    EditOutlined,
+    ExitToApp,
     Face,
-    FaceOutlined, Payment, PaymentOutlined,
-    Settings,
-    SettingsOutlined, SwapVerticalCircle, SwapVerticalCircleOutlined, Telegram,
-    VerifiedUser, VerifiedUserOutlined
+    FaceOutlined,
+    Lock,
+    LockOutlined,
 } from "@mui/icons-material";
+import React from "react";
 
 const DesktopDrawer = () => {
-
     const {pathname} = useLocation();
 
     return (
-        <Box py={2}>
-            <Stack mb={2} direction="column">
-                <Typography sx={{color: 'text.link', pl: 4}} variant="h5">e-BCert</Typography>
-            </Stack>
-            <Divider orientation="horizontal" light={true} variant="middle"/>
-            <Stack mt={2} direction="column" spacing={1}>
-                <SidebarLink
-                    icon={
-                        pathname === '/' ?
-                            <Dashboard sx={{color: 'text.link'}}/> :
-                            <DashboardOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/"
-                    label="Dashboard"
-                    active={pathname === '/'}
-                />
-                <SidebarLink
-                    icon={
-                        pathname === '/requests' ?
-                            <SwapVerticalCircle sx={{color: 'text.link'}}/> :
-                            <SwapVerticalCircleOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/requests"
-                    label="Requests"
-                    active={pathname === '/requests'}
-                />
-                <SidebarLink
-                    icon={
-                        pathname === '/payments' ?
-                            <Payment sx={{color: 'text.link'}}/> :
-                            <PaymentOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/payments"
-                    label="Payments"
-                    active={pathname === '/payments'}
-                />
+        <Box sx={{paddingY: 2, height: '100%'}}>
+            <Box
+                sx={{
+                    display: 'flex', height: '100%', flexDirection: 'column'
+                }}>
+                <Stack sx={{flexGrow: 1, pl: 4}} direction="column" spacing={2}>
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/' ? <Dashboard color='secondary'/> : <DashboardOutlined/>}
+                            active={pathname === '/'}
+                            label="Dashboard"
+                            path="/"
+                        />
+                    </Box>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/birth-certificates' ?
-                            <DriveFileMove sx={{color: 'text.link'}}/> :
-                            <DriveFileMoveOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/birth-certificates"
-                    label="Birth Certificates"
-                    active={pathname === '/birth-certificates'}
-                />
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/birth-certificates' ? <CorporateFare color='secondary'/> :
+                                <CorporateFareOutlined/>}
+                            active={pathname === '/birth-certificates'}
+                            label="Birth Certificates"
+                            path="/birth-certificates"
+                        />
+                    </Box>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/admins' ?
-                            <VerifiedUser sx={{color: 'text.link'}}/> :
-                            <VerifiedUserOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/admins"
-                    label="Admins"
-                    active={pathname === '/admins'}
-                />
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/requests' ? <Apartment color='secondary'/> : <ApartmentOutlined/>}
+                            active={pathname === '/requests'}
+                            label="Requests"
+                            path="/requests"
+                        />
+                    </Box>
 
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/payments' ? <Business color='secondary'/> : <BusinessOutlined/>}
+                            active={pathname === '/payments'}
+                            label="Payments"
+                            path="/payments"
+                        />
+                    </Box>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/settings' ?
-                            <Settings sx={{color: 'text.link'}}/> :
-                            <SettingsOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/settings"
-                    label="Settings"
-                    active={pathname === '/settings'}
-                />
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/profile' ? <Face color='secondary'/> : <FaceOutlined/>}
+                            active={pathname === '/profile'}
+                            label="Profile"
+                            path="/profile"
+                        />
+                    </Box>
+                </Stack>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/profile' ?
-                            <Face sx={{color: 'text.link'}}/> :
-                            <FaceOutlined sx={{color: 'text.secondary'}}/>
-                    }
-                    path="/profile"
-                    label="Profile"
-                    active={pathname === '/profile'}
-                />
-            </Stack>
-        </Box>
-    )
+                <Divider light={true} sx={{my: 2}} variant="fullWidth"/>
+
+                <Stack sx={{pl: 4}} spacing={2} direction="column">
+                    <Typography variant="body2">Account</Typography>
+
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/edit-profile' ? <Edit color='secondary'/> : <EditOutlined/>}
+                            active={pathname === '/edit-profile'}
+                            label="Edit Profile"
+                            path="/edit-profile"
+                        />
+                    </Box>
+
+                    <Box>
+                        <SidebarLink
+                            icon={pathname === '/change-password' ? <Lock color='secondary'/> : <LockOutlined/>}
+                            active={pathname === '/change-password'}
+                            label="Change Password"
+                            path="/change-password"
+                        />
+                    </Box>
+
+                    <Box>
+                        <Button
+                            sx={{
+                                borderWidth: 2,
+                                borderTopLeftRadius: 16,
+                                borderTopRightRadius: 16,
+                                borderBottomLeftRadius: 16,
+                                borderBottomRightRadius: 0,
+                                textTransform: 'capitalize',
+                                cursor: 'pointer',
+                                justifyContent: 'flex-start',
+                                '&:hover': {
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main',
+                                    transition: 'all 500ms 150ms ease-in-out',
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                },
+                                '&:focus': {
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main'
+                                },
+                                '&:active': {
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main'
+                                }
+                            }}
+                            startIcon={<ExitToApp/>}
+                            variant="outlined"
+                            color="secondary">Logout</Button>
+                    </Box>
+                </Stack>
+            </Box>
+        </Box>)
 }
 
 export default DesktopDrawer;

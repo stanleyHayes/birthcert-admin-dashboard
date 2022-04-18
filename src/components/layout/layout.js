@@ -3,16 +3,24 @@ import DesktopDrawer from "../drawers/desktop-drawer";
 import MobileDrawer from "../drawers/mobile-drawer";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUI} from "../../redux/ui/ui-reducer";
-import UI_ACTION_CREATORS from "../../redux/ui/ui-action-creators";
+import Header from "../headers/header";
+import {UI_ACTION_CREATORS} from "../../redux/ui/ui-action-creators";
 
 const Layout = ({children}) => {
 
-    const {drawerOpen} = useSelector(selectUI);
+    const {isToggled} = useSelector(selectUI);
     const dispatch = useDispatch();
 
     return (
         <Box>
-            <Box sx={{display: 'flex', minHeight: '100vh', maxWidth: '100vw'}}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    minHeight: '100vh',
+                    maxWidth: '100vw',
+                    paddingTop: 8,
+                    backgroundColor: 'background.default'
+            }}>
                 <Box
                     sx={{
                         position: 'sticky',
@@ -30,14 +38,15 @@ const Layout = ({children}) => {
                     <DesktopDrawer/>
                 </Box>
                 <Box sx={{flexGrow: 1, backgroundColor: "background.default"}}>
+                    <Header />
                     {children}
                 </Box>
             </Box>
 
             <SwipeableDrawer
-                open={drawerOpen}
-                onClose={() => dispatch(UI_ACTION_CREATORS.closeDrawer())}
-                onOpen={() => dispatch(UI_ACTION_CREATORS.openDrawer())}>
+                open={isToggled}
+                onClose={() => dispatch(UI_ACTION_CREATORS.closeSidebar())}
+                onOpen={() => dispatch(UI_ACTION_CREATORS.openSidebar())}>
                 <MobileDrawer/>
             </SwipeableDrawer>
         </Box>

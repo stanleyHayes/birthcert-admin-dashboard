@@ -1,16 +1,16 @@
 const INITIAL_STATE = {
-    users: [],
-    userLoading: false,
-    userError: null
+    certificates: [],
+    certificateLoading: false,
+    certificateError: null
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const birthCertificateReducer = (state = INITIAL_STATE, action) => {
     switch (action.type){
         default:
             return state;
     }
 }
 
-export const selectUser = state => state.user;
+export const selectCertificate = state => state.certificates;
 
-export default userReducer;
+export default birthCertificateReducer;

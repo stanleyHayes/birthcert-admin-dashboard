@@ -77,8 +77,10 @@ const RequestsPage = () => {
                                 </TableHead>
                             </Table>
                         </TableContainer>
-                        <Box py={8}>
-                            <Typography align="center" variant="h6">No Requests available</Typography>
+                        <Box sx={{backgroundColor: 'background.paper'}} py={5}>
+                            <Typography variant="body2" align="center">
+                                No requests available
+                            </Typography>
                         </Box>
                     </Box>
                 ) : (

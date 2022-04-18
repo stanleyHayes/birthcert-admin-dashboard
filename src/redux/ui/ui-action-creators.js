@@ -1,26 +1,22 @@
-import UI_ACTION_TYPES from "./ui-action-types";
+import {UI_ACTION_TYPES} from "./ui-action-types";
 
-const changeURL = path => {
+const changeActivePath = path => {
     return {
-        type: UI_ACTION_TYPES.CHANGE_URL,
+        type: UI_ACTION_TYPES.CHANGE_ACTIVE_PATH,
         payload: path
     }
 }
 
-
-const closeDrawer = () => {
+const openSidebar = () => {
     return {
-        type: UI_ACTION_TYPES.CLOSE_DRAWER
+        type: UI_ACTION_TYPES.OPEN_SIDEBAR
     }
 }
 
-
-const openDrawer = () => {
+const closeSidebar = () => {
     return {
-        type: UI_ACTION_TYPES.OPEN_DRAWER
+        type: UI_ACTION_TYPES.CLOSE_SIDEBAR
     }
 }
 
-const UI_ACTION_CREATORS = {changeURL, closeDrawer, openDrawer};
-
-export default UI_ACTION_CREATORS;
+export const UI_ACTION_CREATORS = {changeActivePath, openSidebar, closeSidebar};

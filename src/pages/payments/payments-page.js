@@ -77,8 +77,10 @@ const PaymentsPage = () => {
                                 </TableHead>
                             </Table>
                         </TableContainer>
-                        <Box py={8}>
-                            <Typography align="center" variant="h6">No Payments available</Typography>
+                        <Box sx={{backgroundColor: 'background.paper'}} py={5}>
+                            <Typography variant="body2" align="center">
+                                No payments available
+                            </Typography>
                         </Box>
                     </Box>
                 ) : (
