@@ -127,6 +127,9 @@ const DesktopHeader = () => {
                                     variant="outlined"
                                     sx={{
                                         borderWidth: 2,
+                                        '&:hover': {
+                                            borderWidth: 2,
+                                        }
                                     }}>
                                     Logout
                                 </Button>

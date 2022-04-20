@@ -1,6 +1,8 @@
 const BIRTH_REGISTRY_ADMIN_TOKEN_KEY = 'BIRTH_REGISTRY_ADMIN_TOKEN_KEY';
 const BIRTH_REGISTRY_ADMIN_AUTH_KEY = 'BIRTH_REGISTRY_ADMIN_AUTH_KEY';
-const URL_BASE_SERVER = 'http://localhost:8004/api/v1/admin';
+const URL_BASE_SERVER = 'https://birthcert.herokuapp.com/api/v1/admin';
+
+// const URL_BASE_SERVER = 'http://localhost:8004/api/v1/admin';
 
 export const CONSTANTS = {
     BIRTH_REGISTRY_ADMIN_TOKEN_KEY,

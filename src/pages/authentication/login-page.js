@@ -222,10 +222,10 @@ const LoginPage = () => {
                                     py: 1.5
                                 }}
                                 size="large"
-                                startIcon={authLoading && <CircularProgress/>}
+                                startIcon={authLoading && <CircularProgress color="secondary"/>}
                                 loadingPosition="start"
                                 loading={authLoading}
-                                loadingIndicator={<CircularProgress/>}
+                                loadingIndicator={<CircularProgress color="secondary"/>}
                                 onSubmit={handleSubmit}
                                 onClick={handleSubmit}
                                 fullWidth={true}

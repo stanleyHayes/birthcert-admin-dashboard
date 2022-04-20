@@ -146,8 +146,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: null,
                 authLoading: false,
-                token: action.payload.token,
-                authData: action.payload.data
+                splashLoading: false
             }
 
         case AUTH_ACTION_TYPES.LOGOUT_FAIL:
@@ -155,7 +154,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: action.payload,
                 authLoading: false,
-                authData: null
+                authData: null,
+                splashLoading: false
             }
 
 
@@ -172,7 +172,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 authError: null,
                 authLoading: false,
                 token: null,
-                authData: null
+                authData: null,
+                splashLoading: false
             }
 
         case AUTH_ACTION_TYPES.LOGOUT_ALL_FAIL:
@@ -180,7 +181,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authError: action.payload,
                 authLoading: false,
-                authData: null
+                authData: null,
+                splashLoading: false
             }
 
 

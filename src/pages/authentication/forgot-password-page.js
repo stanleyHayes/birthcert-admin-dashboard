@@ -1,10 +1,23 @@
-import {Box, Button, Card, CardContent, Container, Grid, Stack, TextField, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CircularProgress,
+    Container,
+    Grid,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import {useState} from "react";
 import {ChevronLeft} from "@mui/icons-material";
 import {useNavigate} from "react-router";
 import validator from "validator";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
+import {LoadingButton} from "@mui/lab";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const ForgotPasswordPage = () => {
 
@@ -13,6 +26,8 @@ const ForgotPasswordPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const {authLoading} = useSelector(selectAuth);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -92,18 +107,33 @@ const ForgotPasswordPage = () => {
                                     />
                                 </Stack>
 
-                                <Button
+                                <LoadingButton
+                                    startIcon={authLoading ? <CircularProgress color="secondary"/> : null}
+                                    loading={authLoading}
+                                    loadingIndicator={<CircularProgress color="secondary"/>}
+                                    loadingPosition="start"
                                     onClick={handleSubmit}
                                     sx={{
+                                        fontWeight: 'bold',
+                                        textTransform: 'capitalize',
                                         backgroundColor: 'primary.main',
                                         color: 'secondary.main',
-                                        textTransform: 'capitalize'
+                                        '&:hover': {
+                                            color: 'secondary.main'
+                                        },
+                                        '&:focus': {
+                                            color: 'secondary.main'
+                                        },
+                                        '&:active': {
+                                            color: 'secondary.main'
+                                        },
+                                        py: 1.5
                                     }}
                                     size="large"
                                     fullWidth={true}
                                     variant="outlined">
                                     Get Reset Link
-                                </Button>
+                                </LoadingButton>
                             </CardContent>
                         </Card>
                     </Grid>
