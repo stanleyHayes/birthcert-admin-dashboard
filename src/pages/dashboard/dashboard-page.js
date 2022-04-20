@@ -13,7 +13,13 @@ const DashboardPage = () => {
     const useStyles = makeStyles(theme => {
         return {
             container: {
-                paddingTop: 32, paddingBottom: 32
+                [theme.breakpoints.down('sm')]: {
+                    paddingTop: 16
+                },
+                [theme.breakpoints.up('md')]: {
+                    paddingTop: 32,
+                    paddingBottom: 32,
+                }
             }
         }
     });
@@ -30,104 +36,104 @@ const DashboardPage = () => {
     }, [token, dispatch]);
 
     return (<Layout>
-            {dashboardLoading && <LinearProgress variant="query" color="secondary"/>}
-            <Container className={classes.container}>
-                {dashboardError && (<Alert severity="error" sx={{py: 4}}>
-                        <AlertTitle>
-                            {dashboardError}
-                        </AlertTitle>
-                    </Alert>)}
-                <Stack direction="column" spacing={4}>
-                    <Box>
-                        <Typography mb={4} variant="h4">Requests</Typography>
-                        <Grid container={true} spacing={3}>
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.request?.pending}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Pending
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.request?.completed}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Completed
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.request?.delivered}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Delivered
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
+        {dashboardLoading && <LinearProgress variant="query" color="secondary"/>}
+        <Container className={classes.container}>
+            {dashboardError && (<Alert severity="error" sx={{py: 4}}>
+                <AlertTitle>
+                    {dashboardError}
+                </AlertTitle>
+            </Alert>)}
+            <Stack direction="column" spacing={4}>
+                <Box>
+                    <Typography mb={4} variant="h4">Requests</Typography>
+                    <Grid container={true} spacing={3}>
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.request?.pending}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Pending
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </Grid>
-                    </Box>
 
-                    <Box>
-                        <Typography mb={4} variant="h4">Payments</Typography>
-                        <Grid container={true} spacing={3}>
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.payment?.verified}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Verified
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.payment?.pending}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Pending
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            {dashboard?.payment?.waived}
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Waived
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.request?.completed}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Completed
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </Grid>
-                    </Box>
-                </Stack>
-            </Container>
-        </Layout>)
+
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.request?.delivered}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Delivered
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </Box>
+
+                <Box>
+                    <Typography mb={4} variant="h4">Payments</Typography>
+                    <Grid container={true} spacing={3}>
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.payment?.verified}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Verified
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.payment?.pending}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Pending
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+
+                        <Grid item={true} xs={12} md={4}>
+                            <Card elevation={1}>
+                                <CardContent>
+                                    <Typography gutterBottom={true} variant="h2" align="center">
+                                        {dashboard?.payment?.waived}
+                                    </Typography>
+                                    <Typography variant="body2" align="center">
+                                        Waived
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Stack>
+        </Container>
+    </Layout>)
 }
 
 export default DashboardPage;
