@@ -1,11 +1,12 @@
 import {
+    Alert, AlertTitle,
     Box,
     Button,
     Card,
     CardContent,
     CircularProgress,
     Container,
-    Grid,
+    Grid, LinearProgress,
     Stack,
     TextField,
     Typography
@@ -27,22 +28,22 @@ const ForgotPasswordPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {authLoading} = useSelector(selectAuth);
+    const {authLoading, authError} = useSelector(selectAuth);
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        if(!email){
+        if (!email) {
             setError({error, password: 'Field required'});
             return;
-        }else {
+        } else {
             setError({error, password: null});
         }
 
-        if(!validator.isEmail(email)){
+        if (!validator.isEmail(email)) {
             setError({error, email: 'Invalid email'});
             return;
-        }else {
+        } else {
             setError({error, email: null});
         }
 
@@ -60,8 +61,16 @@ const ForgotPasswordPage = () => {
             <Container>
                 <Grid container={true} justifyContent="center">
                     <Grid item={true} xs={12} md={6} lg={4}>
-                        <Card elevation={1} variant="elevation">
+                        <Card elevation={0} variant="elevation">
+                            {authLoading && <LinearProgress color="secondary" variant="query"/>}
                             <CardContent>
+                                {
+                                    authError && (
+                                        <Alert sx={{my: 1}} severity="error" color="error" variant="standard">
+                                            <AlertTitle>{authError}</AlertTitle>
+                                        </Alert>
+                                    )
+                                }
                                 <Button
                                     onClick={() => navigate(-1)}
                                     sx={{

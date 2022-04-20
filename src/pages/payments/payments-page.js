@@ -1,7 +1,7 @@
 import Layout from "../../components/layout/layout";
 import {
     Box,
-    Container,
+    Container, Divider,
     Grid,
     LinearProgress,
     Paper,
@@ -27,13 +27,6 @@ import {orange} from "@mui/material/colors";
 
 const PaymentsPage = () => {
 
-    const useStyles = makeStyles(theme => {
-        return {
-            container: {paddingTop: 16}
-        }
-    });
-
-    const classes = useStyles();
     const dispatch = useDispatch();
     const {token} = useSelector(selectAuth);
 
@@ -48,8 +41,8 @@ const PaymentsPage = () => {
 
     return (
         <Layout>
-            {paymentLoading && <LinearProgress variant="query" color="primary"/>}
-            <Container className={classes.container}>
+            {paymentLoading && <LinearProgress variant="query" color="secondary"/>}
+            <Container sx={{my: 4}}>
                 {paymentError && (
                     <Alert severity="error" sx={{py: 4}}>
                         <AlertTitle>
@@ -58,15 +51,15 @@ const PaymentsPage = () => {
                     </Alert>
                 )}
 
-                <Grid my={4} container={true} justifyContent="space-between" alignItems="center" spacing={2}>
-                    <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h4">Payments({payments.length})</Typography>
-                    </Grid>
-                </Grid>
+
+                <Typography variant="h4">Payments({payments.length})</Typography>
+
+                <Divider sx={{my: 4}} light={true} variant="fullWidth"/>
+
                 {payments && payments.length === 0 ? (
-                    <Box sx={{py: 4}}>
+                    <Box>
                         <TableContainer component={Paper} elevation={0}>
-                            <Table size="medium">
+                            <Table aria-label="payments table" size="medium">
                                 <TableHead>
                                     <TableRow hover={true}>
                                         <TableCell>#</TableCell>
@@ -88,10 +81,10 @@ const PaymentsPage = () => {
                         </Box>
                     </Box>
                 ) : (
-                    <TableContainer sx={{py: 4}} component={Paper} elevation={0}>
-                        <Table size="medium">
+                    <TableContainer component={Paper} elevation={0}>
+                        <Table aria-label="payments table" size="medium">
                             <TableHead>
-                                <TableRow hover={true}>
+                                <TableRow>
                                     <TableCell>#</TableCell>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Phone</TableCell>

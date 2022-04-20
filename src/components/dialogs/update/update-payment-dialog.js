@@ -26,7 +26,7 @@ const UpdatePaymentDialog = ({open, handleClose, payment}) => {
     }
 
     const dispatch = useDispatch();
-    const {authToken} = useSelector(selectAuth);
+    const {token} = useSelector(selectAuth);
 
     const handleAddClick = () => {
         if (!status) {
@@ -35,7 +35,7 @@ const UpdatePaymentDialog = ({open, handleClose, payment}) => {
         } else {
             setError({error, status: null});
         }
-        dispatch(PAYMENT_ACTION_CREATORS.updatePayment(authToken, payment._id, {status}));
+        dispatch(PAYMENT_ACTION_CREATORS.updatePayment(token, payment._id, {status}));
     }
 
     const {paymentError, paymentLoading} = useSelector(selectPayment);

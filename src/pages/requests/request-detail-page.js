@@ -36,7 +36,7 @@ const RequestDetailPage = () => {
 
     return (
         <Layout>
-            {requestLoading && <LinearProgress variant="query" color="primary"/>}
+            {requestLoading && <LinearProgress variant="query" color="secondary"/>}
             <Container>
 
                 {

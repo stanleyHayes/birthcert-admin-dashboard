@@ -1,11 +1,15 @@
 import {
     Box,
-    Button,
     Card,
     CardContent,
-    Container, FormControl,
-    Grid, IconButton, InputAdornment,
+    CircularProgress,
+    Container,
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
     InputLabel,
+    LinearProgress,
     OutlinedInput,
     Stack,
     Typography
@@ -14,8 +18,11 @@ import {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import validator from "validator";
 import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
+import {LoadingButton} from "@mui/lab";
+
 const ResetPasswordPage = () => {
     const [user, setUser] = useState({});
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -27,6 +34,8 @@ const ResetPasswordPage = () => {
         setUser({...user, [event.target.name]: event.target.value});
     }
 
+    const {authLoading} = useSelector(selectAuth);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,48 +44,45 @@ const ResetPasswordPage = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        if(!password){
+        if (!password) {
             setError({error, password: 'Field required'});
             return;
-        }else {
+        } else {
             setError({error, password: null});
         }
 
-        if(!validator.isStrongPassword(password)){
+        if (!validator.isStrongPassword(password)) {
             setError({error, password: 'Field required'});
             return;
-        }else {
+        } else {
             setError({error, password: null});
         }
 
-        if(!confirmPassword){
+        if (!confirmPassword) {
             setError({error, confirmPassword: 'Field required'});
             return;
-        }else {
+        } else {
             setError({error, confirmPassword: null});
         }
 
-        if(password !== confirmPassword){
+        if (password !== confirmPassword) {
             setError({error, confirmPassword: 'Password mismatch', password: 'Password mismatch'});
             return;
-        }else {
+        } else {
             setError({error, confirmPassword: null, password: null});
         }
         dispatch(AUTH_ACTION_CREATORS.resetPassword({password}, token, navigate));
     }
 
-    return (
-        <Box
+    return (<Box
             sx={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: ' center',
-                backgroundColor: 'background.default'
+                minHeight: '100vh', display: 'flex', alignItems: ' center', backgroundColor: 'background.default'
             }}>
             <Container>
-                {<Grid container={true} justifyContent="center">
+                <Grid container={true} justifyContent="center">
                     <Grid item={true} xs={12} md={6} lg={4}>
                         <Card elevation={1} variant="elevation">
+                            {authLoading && <LinearProgress color="secondary" variant="query"/>}
                             <CardContent>
                                 <Typography
                                     sx={{color: 'white', fontWeight: 'bold'}}
@@ -107,19 +113,17 @@ const ResetPasswordPage = () => {
                                             type={visiblePassword ? 'text' : 'password'}
                                             value={password}
                                             onChange={handleChange}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        color="secondary"
-                                                        aria-label="toggle password visibility"
-                                                        onClick={() => setVisiblePassword(!visiblePassword)}
-                                                        onMouseDown={() => setVisiblePassword(!visiblePassword)}
-                                                        edge="end"
-                                                    >
-                                                        {visiblePassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            }
+                                            endAdornment={<InputAdornment position="end">
+                                                <IconButton
+                                                    color="secondary"
+                                                    aria-label="toggle password visibility"
+                                                    onClick={() => setVisiblePassword(!visiblePassword)}
+                                                    onMouseDown={() => setVisiblePassword(!visiblePassword)}
+                                                    edge="end"
+                                                >
+                                                    {visiblePassword ? <VisibilityOff/> : <Visibility/>}
+                                                </IconButton>
+                                            </InputAdornment>}
                                         />
                                     </FormControl>
 
@@ -137,24 +141,24 @@ const ResetPasswordPage = () => {
                                             type={visiblePassword ? 'text' : 'password'}
                                             value={confirmPassword}
                                             onChange={handleChange}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        color="secondary"
-                                                        aria-label="toggle password visibility"
-                                                        onClick={() => setVisibleConfirmPassword(!confirmVisiblePassword)}
-                                                        onMouseDown={() => setVisibleConfirmPassword(!confirmVisiblePassword)}
-                                                        edge="end"
-                                                    >
-                                                        {confirmVisiblePassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            }
+                                            endAdornment={<InputAdornment position="end">
+                                                <IconButton
+                                                    color="secondary"
+                                                    aria-label="toggle password visibility"
+                                                    onClick={() => setVisibleConfirmPassword(!confirmVisiblePassword)}
+                                                    onMouseDown={() => setVisibleConfirmPassword(!confirmVisiblePassword)}
+                                                    edge="end"
+                                                >
+                                                    {confirmVisiblePassword ? <VisibilityOff/> : <Visibility/>}
+                                                </IconButton>
+                                            </InputAdornment>}
                                         />
                                     </FormControl>
                                 </Stack>
 
-                                <Button
+                                <LoadingButton
+                                    loading={authLoading}
+                                    loadingIndicator={<CircularProgress size="small" color="secondary"/>}
                                     onClick={handleSubmit}
                                     sx={{
                                         backgroundColor: 'primary.main',
@@ -174,14 +178,13 @@ const ResetPasswordPage = () => {
                                     fullWidth={true}
                                     variant="outlined">
                                     Reset Password
-                                </Button>
+                                </LoadingButton>
                             </CardContent>
                         </Card>
                     </Grid>
-                </Grid>}
+                </Grid>
             </Container>
-        </Box>
-    )
+        </Box>)
 }
 
 export default ResetPasswordPage;

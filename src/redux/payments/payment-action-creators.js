@@ -78,7 +78,7 @@ const updatePayment = (token, id, payment) => {
             const {data} = response.data;
             dispatch(updatePaymentSuccess(data));
         }catch (e) {
-            const {message} = e.response.error;
+            const {message} = e.response.data;
             dispatch(updatePaymentFailure(message));
         }
     }

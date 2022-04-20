@@ -1,7 +1,7 @@
 import Layout from "../../components/layout/layout";
 import {
     Box,
-    Container,
+    Container, Divider,
     Grid,
     LinearProgress,
     Paper,
@@ -13,7 +13,6 @@ import {
     TableRow, Tooltip,
     Typography
 } from "@mui/material";
-import {makeStyles} from "@mui/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {Alert, AlertTitle} from "@mui/lab";
 import {Edit, Visibility} from "@mui/icons-material";
@@ -28,15 +27,8 @@ import {orange} from "@mui/material/colors";
 
 const RequestsPage = () => {
 
-    const useStyles = makeStyles(theme => {
-        return {
-            container: {paddingTop: 16}
-        }
-    });
-
     const [selectedRequest, setSelectedRequest] = useState(null);
 
-    const classes = useStyles();
     const dispatch = useDispatch();
 
     const {authToken} = useSelector(selectAuth);
@@ -50,7 +42,7 @@ const RequestsPage = () => {
     return (
         <Layout>
             {requestLoading && <LinearProgress variant="query" color="secondary"/>}
-            <Container className={classes.container}>
+            <Container sx={{my: 4}}>
                 {requestError && (
                     <Alert severity="error" sx={{py: 4}}>
                         <AlertTitle>
@@ -59,23 +51,19 @@ const RequestsPage = () => {
                     </Alert>
                 )}
 
-                <Grid my={4} container={true} justifyContent="space-between" alignItems="center" spacing={2}>
-                    <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h4">Requests({requests.length})</Typography>
-                    </Grid>
-                </Grid>
+                <Typography variant="h4">Requests({requests.length})</Typography>
+
+                <Divider sx={{my: 3}} light={true} variant="fullWidth"/>
 
                 {requests && requests.length === 0 ? (
-                    <Box sx={{py: 4}}>
+                    <Box>
                         <TableContainer component={Paper} elevation={0}>
-                            <Table size="medium">
+                            <Table aria-label="payments table" size="medium">
                                 <TableHead>
                                     <TableRow hover={true}>
                                         <TableCell>#</TableCell>
                                         <TableCell>Name</TableCell>
-                                        <TableCell>Phone</TableCell>
-                                        <TableCell>Amount</TableCell>
-                                        <TableCell>Invitation ID</TableCell>
+                                        <TableCell>Contact</TableCell>
                                         <TableCell>Date</TableCell>
                                         <TableCell>Status</TableCell>
                                         <TableCell>Actions</TableCell>
@@ -90,15 +78,13 @@ const RequestsPage = () => {
                         </Box>
                     </Box>
                 ) : (
-                    <TableContainer sx={{py: 4}} component={Paper} elevation={0}>
-                        <Table size="medium">
+                    <TableContainer component={Paper} elevation={0}>
+                        <Table aria-label="payments table" size="medium">
                             <TableHead>
                                 <TableRow hover={true}>
                                     <TableCell>#</TableCell>
                                     <TableCell>Name</TableCell>
-                                    <TableCell>Date of Birth</TableCell>
-                                    <TableCell>Sex</TableCell>
-                                    <TableCell>Place of Birth</TableCell>
+                                    <TableCell>Contact</TableCell>
                                     <TableCell>Date</TableCell>
                                     <TableCell>Status</TableCell>
                                     <TableCell>Actions</TableCell>
@@ -110,9 +96,7 @@ const RequestsPage = () => {
                                         <TableRow hover={true} key={request._id}>
                                             <TableCell>{index + 1}</TableCell>
                                             <TableCell>{request.full_name_of_informant}</TableCell>
-                                            <TableCell>{new Date(request.date_of_birth).toDateString()}</TableCell>
-                                            <TableCell>{request.sex}</TableCell>
-                                            <TableCell>{request.place_of_birth}</TableCell>
+                                            <TableCell>{request.contact_phone}</TableCell>
                                             <TableCell>{moment(request.created_at).fromNow()}</TableCell>
                                             <TableCell>{request.status}</TableCell>
                                             <TableCell>

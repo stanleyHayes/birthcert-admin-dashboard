@@ -62,35 +62,6 @@ const darkTheme = createTheme({
     components: {
         MuiCssBaseline: {
             styleOverrides: {
-                body: {
-                    scrollbarColor: "#222222 #222222",
-                    "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-                        backgroundColor: "#222222",
-                        width: 16,
-                    },
-                    "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
-                        borderRadius: 8,
-                        backgroundColor: "#f9a34f",
-                        border: "4px solid #222222",
-                        height: 8
-                    },
-                    "&::-webkit-scrollbar-track-piece, & *::-webkit-scrollbar-track-piece": {
-                        borderRadius: 8,
-                        backgroundColor: "#303030",
-                    },
-                    "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
-                        backgroundColor: "#f48010",
-                    },
-                    "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
-                        backgroundColor: "#f48010",
-                    },
-                    "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
-                        backgroundColor: "#f48010",
-                    },
-                    "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
-                        backgroundColor: "#f9a34f",
-                    },
-                },
             }
         }
     },

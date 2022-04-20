@@ -5,21 +5,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUI} from "../../redux/ui/ui-reducer";
 import Header from "../headers/header";
 import {UI_ACTION_CREATORS} from "../../redux/ui/ui-action-creators";
-
+import React from "react";
 const Layout = ({children}) => {
 
     const {isToggled} = useSelector(selectUI);
     const dispatch = useDispatch();
 
     return (
-        <Box>
+        <React.Fragment>
             <Box
                 sx={{
                     display: 'flex',
                     minHeight: '100vh',
                     maxWidth: '100vw',
-                    paddingTop: 8,
-                    backgroundColor: 'background.default'
+                    backgroundColor: 'background.default',
+                    paddingTop: 8
             }}>
                 <Box
                     sx={{
@@ -37,7 +37,7 @@ const Layout = ({children}) => {
                     }}>
                     <DesktopDrawer/>
                 </Box>
-                <Box sx={{flexGrow: 1, backgroundColor: "background.default"}}>
+                <Box sx={{flexGrow: 1, backgroundColor: "background.default", maxWidth: '100%'}}>
                     <Header />
                     {children}
                 </Box>
@@ -49,7 +49,7 @@ const Layout = ({children}) => {
                 onOpen={() => dispatch(UI_ACTION_CREATORS.openSidebar())}>
                 <MobileDrawer/>
             </SwipeableDrawer>
-        </Box>
+        </React.Fragment>
 
 
     )

@@ -26,7 +26,7 @@ const UpdateRequestDialog = ({open, handleClose, request}) => {
     }
 
     const dispatch = useDispatch();
-    const {authToken} = useSelector(selectAuth);
+    const {token} = useSelector(selectAuth);
 
     const handleAddClick = () => {
         if (!status) {
@@ -35,7 +35,7 @@ const UpdateRequestDialog = ({open, handleClose, request}) => {
         } else {
             setError({error, status: null});
         }
-        dispatch(REQUEST_ACTION_CREATORS.updateRequest(authToken, request._id, {status}));
+        dispatch(REQUEST_ACTION_CREATORS.updateRequest(token, request._id, {status}));
     }
 
     const {requestError, requestLoading} = useSelector(selectRequest);

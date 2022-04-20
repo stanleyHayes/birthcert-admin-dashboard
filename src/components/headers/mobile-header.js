@@ -2,9 +2,8 @@ import {Grid, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {UI_ACTION_CREATORS} from "../../redux/ui/ui-action-creators";
-import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const MobileHeader = () => {
 

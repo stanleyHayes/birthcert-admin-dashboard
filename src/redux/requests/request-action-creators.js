@@ -79,7 +79,7 @@ const updateRequest = (token, id, request) => {
             const {data} = response.data;
             dispatch(updateRequestSuccess(data));
         }catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(updateRequestFailure(message));
         }
     }
@@ -120,7 +120,7 @@ const getRequest = (token, ID) => {
             const {data} = response.data;
             dispatch(getRequestSuccess(data));
         }catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(getRequestFailure(message));
         }
     }
