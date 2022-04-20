@@ -13,6 +13,9 @@ import {
 import {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import validator from "validator";
+import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
+import {useDispatch} from "react-redux";
+import {useNavigate, useParams} from "react-router";
 const ResetPasswordPage = () => {
     const [user, setUser] = useState({});
     const [visiblePassword, setVisiblePassword] = useState(false);
@@ -23,6 +26,11 @@ const ResetPasswordPage = () => {
     const handleChange = event => {
         setUser({...user, [event.target.name]: event.target.value});
     }
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const {token} = useParams();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -54,7 +62,7 @@ const ResetPasswordPage = () => {
         }else {
             setError({error, confirmPassword: null, password: null});
         }
-        console.log(password);
+        dispatch(AUTH_ACTION_CREATORS.resetPassword({password}, token, navigate));
     }
 
     return (
@@ -75,7 +83,7 @@ const ResetPasswordPage = () => {
                                     gutterBottom={true}
                                     align="center"
                                     variant="h4">
-                                    Birth & Death Registry
+                                    Birth Registry
                                 </Typography>
                                 <Typography gutterBottom={true} align="center" variant="h6">
                                     Reset Password

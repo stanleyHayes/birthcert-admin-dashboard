@@ -3,6 +3,8 @@ import {useState} from "react";
 import {ChevronLeft} from "@mui/icons-material";
 import {useNavigate} from "react-router";
 import validator from "validator";
+import {useDispatch} from "react-redux";
+import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
 
 const ForgotPasswordPage = () => {
 
@@ -10,6 +12,7 @@ const ForgotPasswordPage = () => {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -28,7 +31,7 @@ const ForgotPasswordPage = () => {
             setError({error, email: null});
         }
 
-        console.log(email);
+        dispatch(AUTH_ACTION_CREATORS.forgotPassword({email}));
     }
 
     return (
@@ -62,7 +65,7 @@ const ForgotPasswordPage = () => {
                                     gutterBottom={true}
                                     align="center"
                                     variant="h4">
-                                    Birth & Death Registry
+                                    Birth Registry
                                 </Typography>
                                 <Typography mb={1} gutterBottom={true} align="center" variant="body1">
                                     Forgot Password

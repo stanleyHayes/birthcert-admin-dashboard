@@ -28,7 +28,6 @@ const EditProfile = () => {
         email,
         username,
         phone,
-        emergencyPhoneNumber,
     } = user;
 
 
@@ -81,7 +80,6 @@ const EditProfile = () => {
             email,
             username,
             phone,
-            emergencyPhoneNumber
         }, token));
     }
 
@@ -103,7 +101,6 @@ const EditProfile = () => {
                 <Divider light={true} variant="fullWidth" sx={{my: 4}}/>
 
                 <Grid
-                    spacing={2}
                     container={true}
                     justifyContent="flex-start">
                     <Grid item={true} xs={12} md={6}>
@@ -113,7 +110,7 @@ const EditProfile = () => {
                                 {authError && (
                                     <Alert severity="error">{authError}</Alert>
                                 )}
-                                <Stack my={3} spacing={2} direction="column">
+                                <Stack spacing={2} direction="column">
                                     <TextField
                                         label="Name"
                                         fullWidth={true}
@@ -175,36 +172,35 @@ const EditProfile = () => {
                                         onChange={handleUserChange}
                                     />
 
-                                    <TextField
-                                        label="Emergency Phone"
+
+                                    <LoadingButton
+                                        startIcon={authLoading ? <CircularProgress color="secondary"/> : null}
+                                        loading={authLoading}
+                                        loadingIndicator={<CircularProgress color="secondary"/>}
+                                        loadingPosition="start"
+                                        onClick={handleSubmit}
+                                        sx={{
+                                            fontWeight: 'bold',
+                                            textTransform: 'capitalize',
+                                            backgroundColor: 'primary.main',
+                                            color: 'secondary.main',
+                                            '&:hover': {
+                                                color: 'secondary.main'
+                                            },
+                                            '&:focus': {
+                                                color: 'secondary.main'
+                                            },
+                                            '&:active': {
+                                                color: 'secondary.main'
+                                            },
+                                            py: 1.5
+                                        }}
+                                        size="large"
                                         fullWidth={true}
-                                        name="emergencyPhoneNumber"
-                                        required={true}
-                                        variant="outlined"
-                                        value={emergencyPhoneNumber}
-                                        type="tel"
-                                        size="medium"
-                                        onChange={handleUserChange}
-                                    />
-
+                                        variant="outlined">
+                                        Update Profile
+                                    </LoadingButton>
                                 </Stack>
-
-                                <LoadingButton
-                                    startIcon={authLoading ? <CircularProgress color="secondary"/> : null}
-                                    loading={authLoading}
-                                    loadingIndicator={<CircularProgress color="secondary"/>}
-                                    loadingPosition="start"
-                                    onClick={handleSubmit}
-                                    sx={{
-                                        backgroundColor: 'primary.main',
-                                        color: 'secondary.main',
-                                        textTransform: 'capitalize'
-                                    }}
-                                    size="large"
-                                    fullWidth={true}
-                                    variant="outlined">
-                                    Update Profile
-                                </LoadingButton>
                             </CardContent>
                         </Card>
                     </Grid>

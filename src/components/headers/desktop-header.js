@@ -1,10 +1,12 @@
 import {Avatar, Button, Container, Grid, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Link} from "react-router-dom";
-import {KeyboardArrowDown} from "@mui/icons-material";
+import {Face, KeyboardArrowDown} from "@mui/icons-material";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../redux/authentication/auth-reducer";
+import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
+import {useNavigate} from "react-router";
 
 const DesktopHeader = () => {
 
@@ -23,6 +25,10 @@ const DesktopHeader = () => {
 
     const classes = useStyles();
 
+    const {token} = useSelector(selectAuth);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const getInitials = name => {
         const names = name.split(' ');
@@ -54,13 +60,19 @@ const DesktopHeader = () => {
                 <Grid container={true} alignItems="center" justifyContent="space-around">
                     <Grid item={true} lg={3}>
                         <Link to="/" className={classes.link}>
-                            <Typography sx={{color: 'secondary.main'}} variant="h5">
-                                Birth & Death Registry
+                            <Typography sx={{color: 'secondary.main'}} variant="h4">
+                                Birth Registry
                             </Typography>
                         </Link>
                     </Grid>
 
-                    <Grid alignItems="center" container={true} lg={9} spacing={2} justifyContent="flex-end">
+                    <Grid
+                        item={true}
+                        alignItems="center"
+                        container={true}
+                        lg={9}
+                        spacing={2}
+                        justifyContent="flex-end">
                         <Grid item={true}>
                             <Avatar
                                 sx={{
@@ -71,31 +83,45 @@ const DesktopHeader = () => {
                                 }}
                                 variant="circular">
                                 <Typography
-                                    sx={{fontWeight: 'bold', color: 'secondary.main'}}
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        color: 'secondary.main',
+                                        textTransform: 'capitalize'
+                                    }}
                                     variant="body1">
-                                    {getInitials(authData.name)}
+                                    {authData && getInitials(authData.name)}
                                 </Typography>
                             </Avatar>
                         </Grid>
                         <Grid item={true}>
                             <Button
+                                sx={{textTransform: 'capitalize'}}
                                 color="secondary"
                                 onClick={handleMenuClick}
                                 endIcon={<KeyboardArrowDown color="secondary"/>}
                                 size="large" variant="text">
-                                {"Stanley Hayford"}
+                                {authData && authData.name}
                             </Button>
-                            <Menu open={menuOpen} onClose={handleMenuClose} anchorEl={anchorEl}>
+                            <Menu elevation={1}  open={menuOpen} onClose={handleMenuClose} anchorEl={anchorEl}>
                                 <MenuItem>
                                     <Link to="/profile" className={classes.dropDownLink}>
-                                        <Button variant="text" size="large">Profile</Button>
+                                        <Button
+                                            fullWidth={true}
+                                            startIcon={<Face color="secondary" />}
+                                            variant="text"
+                                            sx={{
+                                                textTransform: 'capitalize',
+                                                color: 'secondary.main',
+                                                justifyContent: 'flex-start'
+                                        }}
+                                            size="large">Profile</Button>
                                     </Link>
                                 </MenuItem>
                             </Menu>
                         </Grid>
                         <Grid item={true}>
-                            <Link className={classes.link} to="/login">
                                 <Button
+                                    onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
                                     color="secondary"
                                     size="medium"
                                     variant="outlined"
@@ -104,7 +130,6 @@ const DesktopHeader = () => {
                                     }}>
                                     Logout
                                 </Button>
-                            </Link>
                         </Grid>
                     </Grid>
                 </Grid>

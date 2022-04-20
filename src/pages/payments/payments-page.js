@@ -10,7 +10,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow,
+    TableRow, Tooltip,
     Typography
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
@@ -19,8 +19,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {Alert, AlertTitle} from "@mui/lab";
 import {Edit} from "@mui/icons-material";
 import moment from "moment";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {PAYMENT_ACTION_CREATORS} from "../../redux/payments/payment-action-creators";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
+import UpdatePaymentDialog from "../../components/dialogs/update/update-payment-dialog";
+import {orange} from "@mui/material/colors";
 
 const PaymentsPage = () => {
 
@@ -32,10 +35,15 @@ const PaymentsPage = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
+
+    const [selectedPayment, setSelectedPayment] = useState(null);
+
 
     useEffect(() => {
-        dispatch(PAYMENT_ACTION_CREATORS.getPayments());
-    }, [dispatch]);
+        dispatch(PAYMENT_ACTION_CREATORS.getPayments(token));
+    }, [token, dispatch]);
+
     const {payments, paymentLoading, paymentError} = useSelector(selectPayment);
 
     return (
@@ -45,18 +53,14 @@ const PaymentsPage = () => {
                 {paymentError && (
                     <Alert severity="error" sx={{py: 4}}>
                         <AlertTitle>
-                            Error
+                            {paymentError}
                         </AlertTitle>
-                        <Typography align="center" variant="body2">{paymentError}</Typography>
                     </Alert>
                 )}
 
                 <Grid my={4} container={true} justifyContent="space-between" alignItems="center" spacing={2}>
                     <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h4">Payments</Typography>
-                    </Grid>
-                    <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h5">{payments.length}</Typography>
+                        <Typography variant="h4">Payments({payments.length})</Typography>
                     </Grid>
                 </Grid>
                 {payments && payments.length === 0 ? (
@@ -111,7 +115,22 @@ const PaymentsPage = () => {
                                             <TableCell>{payment.status}</TableCell>
                                             <TableCell>
                                                 <Grid container={true} alignItems="center">
-                                                    <Grid item={true}><Edit fontSize="small"/></Grid>
+                                                    <Grid item={true}>
+                                                        <Tooltip title="Update Payment">
+                                                            <Edit
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: orange[50],
+                                                                    borderRadius: 1,
+                                                                    padding: 0.4,
+                                                                    color: orange[800]
+                                                                }}
+                                                                color="secondary"
+                                                                onClick={() => setSelectedPayment(payment)}
+                                                                fontSize="small"
+                                                            />
+                                                        </Tooltip>
+                                                    </Grid>
                                                 </Grid>
                                             </TableCell>
                                         </TableRow>
@@ -120,6 +139,14 @@ const PaymentsPage = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                )}
+
+                {Boolean(selectedPayment) && (
+                    <UpdatePaymentDialog
+                        payment={selectedPayment}
+                        open={Boolean(selectedPayment)}
+                        handleClose={() => setSelectedPayment(null)}
+                    />
                 )}
             </Container>
         </Layout>

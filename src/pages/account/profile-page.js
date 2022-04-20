@@ -22,20 +22,20 @@ const ProfilePage = () => {
                     </Grid>
                     <Grid item={true} xs={12} md="auto">
                         <Link to="/edit-profile" style={{textDecoration: 'none'}}>
-                        <Button
-                            sx={{
-                                fontWeight: 700,
-                                textTransform: 'capitalize',
-                                color: "primary.main",
-                                backgroundColor: "secondary.main"
-                            }}
-                            startIcon={<Edit fontSize="small" sx={{color: "primary.main"}}/>}
-                            variant="outlined"
-                            fullWidth={true}
-                            disableElevation={true}
-                            size="large">
-                            Update Profile
-                        </Button>
+                            <Button
+                                sx={{
+                                    fontWeight: 700,
+                                    textTransform: 'capitalize',
+                                    color: "primary.main",
+                                    backgroundColor: "secondary.main"
+                                }}
+                                startIcon={<Edit fontSize="small" sx={{color: "primary.main"}}/>}
+                                variant="outlined"
+                                fullWidth={true}
+                                disableElevation={true}
+                                size="large">
+                                Update Profile
+                            </Button>
 
                         </Link>
                     </Grid>
@@ -53,7 +53,7 @@ const ProfilePage = () => {
                                             sx={{color: 'secondary.main'}}
                                             variant="h4"
                                             align="center">
-                                            {UTILS.getInitials(authData.name)}
+                                            {authData && UTILS.getInitials(authData.name)}
                                         </Typography>
                                     </Avatar>
                                 </Stack>
@@ -91,15 +91,9 @@ const ProfilePage = () => {
                                             disableRipple={true}
                                             variant="text"
                                             size="small"
+                                            sx={{textTransform: 'capitalize'}}
                                             startIcon={<Person/>}>
                                             Contact Details
-                                        </Button>
-                                        <Button
-                                            color="secondary"
-                                            variant="outlined"
-                                            size="small"
-                                            startIcon={<Edit/>}>
-                                            Edit
                                         </Button>
                                     </Stack>
 
@@ -110,28 +104,28 @@ const ProfilePage = () => {
                                             <Info
                                                 icon={<Mail sx={{color: "primary.main"}}/>}
                                                 title="Email"
-                                                value={authData.email}
+                                                value={authData && authData.email}
                                             />
                                         </Grid>
                                         <Grid item={true} xs={12} md={6}>
                                             <Info
                                                 icon={<Call sx={{color: "primary.main"}}/>}
                                                 title="Phone"
-                                                value={authData.phone}
+                                                value={authData && authData.phone}
                                             />
                                         </Grid>
                                         <Grid item={true} xs={12} md={6}>
                                             <Info
                                                 icon={<CalendarToday sx={{color: "primary.main"}}/>}
                                                 title="Joined"
-                                                value={moment(authData.createdAt).fromNow()}
+                                                value={authData && moment(authData.created_at).fromNow()}
                                             />
                                         </Grid>
                                         <Grid item={true} xs={12} md={6}>
                                             <Info
                                                 icon={<Person sx={{color: "primary.main"}}/>}
                                                 title="Username"
-                                                value={authData.username}
+                                                value={authData && authData.username}
                                             />
                                         </Grid>
                                     </Grid>

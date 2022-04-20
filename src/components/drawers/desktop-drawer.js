@@ -1,13 +1,11 @@
 import {Box, Button,  Divider, Stack, Typography} from "@mui/material";
 import SidebarLink from "../shared/sidebar-link";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {
     Apartment,
     ApartmentOutlined,
     Business,
     BusinessOutlined,
-    CorporateFare,
-    CorporateFareOutlined,
     Dashboard,
     DashboardOutlined,
     Edit,
@@ -19,12 +17,21 @@ import {
     LockOutlined,
 } from "@mui/icons-material";
 import React from "react";
+import {AUTH_ACTION_CREATORS} from "../../redux/authentication/auth-action-creators";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const DesktopDrawer = () => {
     const {pathname} = useLocation();
 
+    const {token} = useSelector(selectAuth);
+
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     return (
-        <Box sx={{paddingY: 2, height: '100%'}}>
+        <Box sx={{paddingY: 2, height: '100%', backgroundColor: 'background.paper'}}>
             <Box
                 sx={{
                     display: 'flex', height: '100%', flexDirection: 'column'
@@ -39,15 +46,6 @@ const DesktopDrawer = () => {
                         />
                     </Box>
 
-                    <Box>
-                        <SidebarLink
-                            icon={pathname === '/birth-certificates' ? <CorporateFare color='secondary'/> :
-                                <CorporateFareOutlined/>}
-                            active={pathname === '/birth-certificates'}
-                            label="Birth Certificates"
-                            path="/birth-certificates"
-                        />
-                    </Box>
 
                     <Box>
                         <SidebarLink
@@ -102,6 +100,7 @@ const DesktopDrawer = () => {
 
                     <Box>
                         <Button
+                            onClick={() => dispatch(AUTH_ACTION_CREATORS.logout(token, navigate))}
                             sx={{
                                 borderWidth: 2,
                                 borderTopLeftRadius: 16,

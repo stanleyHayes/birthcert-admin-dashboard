@@ -2,8 +2,9 @@ import {Grid, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UI_ACTION_CREATORS} from "../../redux/ui/ui-action-creators";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const MobileHeader = () => {
 
@@ -14,6 +15,7 @@ const MobileHeader = () => {
             }
         }
     });
+
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -28,8 +30,8 @@ const MobileHeader = () => {
                 </Grid>
                 <Grid item={true}>
                     <Link to="/" className={classes.link}>
-                        <Typography sx={{color: 'secondary.main'}} variant="body2">
-                            Birth & Death Registry
+                        <Typography sx={{color: 'secondary.main'}} variant="h6">
+                            Birth Registry
                         </Typography>
                     </Link>
                 </Grid>

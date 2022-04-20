@@ -1,138 +1,150 @@
-import {Box, Divider, Stack, Typography} from "@mui/material";
+import {Box, Button, Divider, Grid, Stack, Typography} from "@mui/material";
 import SidebarLink from "../shared/sidebar-link";
 import {useLocation} from "react-router";
-import {Dashboard, DashboardOutlined} from "@mui/icons-material";
+import {
+    Dashboard,
+    DashboardOutlined,
+    Edit,
+    EditOutlined, ExitToApp, Face, FaceOutlined,
+    Lock,
+    LockOutlined,
+    Paid,
+    PaidOutlined
+} from "@mui/icons-material";
+import React from "react";
 
 const MobileDrawer = () => {
 
     const {pathname} = useLocation();
 
     return (
-        <Box py={2} sx={{minWidth: '60vw'}}>
-            <Stack mb={2} direction="column" ml={4}>
-                <Typography color="primary" variant="body2">Birth & Death Registry</Typography>
-            </Stack>
-            <Divider orientation="horizontal" light={true} variant="middle"/>
-            <Stack mt={2} direction="column" spacing={1} ml={4}>
-                <SidebarLink
-                    icon={
-                        pathname === '/' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/"
-                    label="Dashboard"
-                    active={pathname === '/'}
-                />
-                <SidebarLink
-                    icon={
-                        pathname === '/birth-certificates' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/transactions"
-                    label="Transactions"
-                    active={pathname === '/birth-certificates'}
-                />
-                <SidebarLink
-                    icon={
-                        pathname === '/clients' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/bank-accounts"
-                    label="Bank Accounts"
-                    active={pathname === '/clients'}
-                />
+        <Box
+            sx={{
+                minWidth: '80vw',
+                backgroundColor: 'background.default',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+            <Typography sx={{ml: 4, my: 1}} color="secondary" variant="h6">Birth Registry</Typography>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/requests' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/funds"
-                    label="Funds"
-                    active={pathname === '/requests'}
-                />
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    backgroundColor: 'background.default',
+                }}>
+                <Stack mt={2} direction="column" spacing={1} ml={4}>
+                    <SidebarLink
+                        icon={
+                            pathname === '/' ?
+                                <Dashboard sx={{color: 'secondary.main'}}/> :
+                                <DashboardOutlined/>
+                        }
+                        path="/"
+                        label="Dashboard"
+                        active={pathname === '/'}
+                    />
 
-                <SidebarLink
-                    icon={
-                        pathname === '/invitations' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/invitations"
-                    label="Invitations"
-                    active={pathname === '/invitations'}
-                />
+                    <SidebarLink
+                        icon={
+                            pathname === '/payments' ?
+                                <Paid sx={{color: 'secondary.main'}}/> :
+                                <PaidOutlined/>
+                        }
+                        path="/payments"
+                        label="Payments"
+                        active={pathname === '/payments'}
+                    />
 
-                <SidebarLink
-                    icon={
-                        pathname === '/birth-certificates' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/permissions"
-                    label="Permissions"
-                    active={pathname === '/birth-certificates'}
-                />
+                    <SidebarLink
+                        icon={
+                            pathname === '/requests' ?
+                                <Dashboard sx={{color: 'secondary.main'}}/> :
+                                <DashboardOutlined/>
+                        }
+                        path="/requests"
+                        label="Requests"
+                        active={pathname === '/requests'}
+                    />
 
-                <SidebarLink
-                    icon={
-                        pathname === '/settings' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/users"
-                    label="Users"
-                    active={pathname === '/settings'}
-                />
+                    <SidebarLink
+                        icon={
+                            pathname === '/profile' ?
+                                <Face sx={{color: 'secondary.main'}}/> :
+                                <FaceOutlined/>
+                        }
+                        path="/profile"
+                        label="Profile"
+                        active={pathname === '/profile'}
+                    />
+                </Stack>
 
-                <SidebarLink
-                    icon={
-                        pathname === '/admins' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/admins"
-                    label="Admins"
-                    active={pathname === '/admins'}
-                />
+                <Stack mt={2} mb={2} direction="column" spacing={1} ml={4}>
+                    <SidebarLink
+                        icon={
+                            pathname === '/change-password' ?
+                                <Lock sx={{color: 'secondary main'}}/> :
+                                <LockOutlined/>
+                        }
+                        path="/change-password"
+                        label="Change Password"
+                        active={pathname === '/change-password'}
+                    />
 
-                <SidebarLink
-                    icon={
-                        pathname === '/payments' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/information"
-                    label="Information"
-                    active={pathname === '/payments'}
-                />
+                    <SidebarLink
+                        icon={
+                            pathname === '/edit-profile' ?
+                                <Edit sx={{color: 'secondary.main'}}/> :
+                                <EditOutlined/>
+                        }
+                        path="/edit-profile"
+                        label="Edit Profile"
+                        active={pathname === '/edit-profile'}
+                    />
 
-                <SidebarLink
-                    icon={
-                        pathname === '/settings' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/settings"
-                    label="Settings"
-                    active={pathname === '/settings'}
-                />
-
-                <SidebarLink
-                    icon={
-                        pathname === '/profile' ?
-                            <Dashboard sx={{color: 'primary.main'}}/> :
-                            <DashboardOutlined sx={{color: 'secondary.main'}}/>
-                    }
-                    path="/profile"
-                    label="Profile"
-                    active={pathname === '/profile'}
-                />
-            </Stack>
+                    <Box>
+                        <Button
+                            sx={{
+                                borderWidth: 2,
+                                borderTopLeftRadius: 16,
+                                borderTopRightRadius: 16,
+                                borderBottomLeftRadius: 16,
+                                borderBottomRightRadius: 0,
+                                textTransform: 'capitalize',
+                                cursor: 'pointer',
+                                justifyContent: 'flex-start',
+                                '&:hover': {
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main',
+                                    transition: 'all 500ms 150ms ease-in-out',
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                },
+                                '&:focus': {
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main'
+                                },
+                                '&:active': {
+                                    borderWidth: 2,
+                                    borderStyle: 'solid',
+                                    borderColor: 'secondary.main',
+                                    backgroundColor: 'light.secondary',
+                                    color: 'secondary.main'
+                                }
+                            }}
+                            startIcon={<ExitToApp/>}
+                            variant="outlined"
+                            color="secondary">Logout</Button>
+                    </Box>
+                </Stack>
+            </Box>
         </Box>
     )
 }

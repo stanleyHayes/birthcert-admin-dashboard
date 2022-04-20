@@ -44,8 +44,10 @@ const paymentReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 paymentError: null,
                 paymentLoading: false,
-                payments: action.payload.payments,
-                totalPayments: action.payload.count
+                payments: [...state.payments.map(payment => {
+                    if(payment._id === action.payload._id) return action.payload;
+                    return payment
+                })],
             }
 
         case PAYMENT_ACTION_TYPES.UPDATE_PAYMENT_FAIL:

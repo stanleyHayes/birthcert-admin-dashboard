@@ -1,23 +1,42 @@
 import Layout from "../../components/layout/layout";
-import {Box, Card, CardContent, Container, Grid, Stack, Typography} from "@mui/material";
+import {Box, Card, CardContent, Container, Grid, LinearProgress, Stack, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
+import {useDispatch, useSelector} from "react-redux";
+import {selectDashboard} from "../../redux/dashboard/dashboard-reducer";
+import {Alert, AlertTitle} from "@mui/lab";
+import {useEffect} from "react";
+import {DASHBOARD_ACTION_CREATORS} from "../../redux/dashboard/dashboard-action-creators";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
 
 const DashboardPage = () => {
 
     const useStyles = makeStyles(theme => {
         return {
             container: {
-                paddingTop: 32,
-                paddingBottom: 32
+                paddingTop: 32, paddingBottom: 32
             }
         }
     });
 
     const classes = useStyles();
 
-    return (
-        <Layout>
+    const {dashboard, dashboardLoading, dashboardError} = useSelector(selectDashboard);
+
+    const dispatch = useDispatch();
+    const {token} = useSelector(selectAuth);
+
+    useEffect(() => {
+        dispatch(DASHBOARD_ACTION_CREATORS.getDashboard(token))
+    }, [token, dispatch]);
+
+    return (<Layout>
+            {dashboardLoading && <LinearProgress variant="query" color="secondary"/>}
             <Container className={classes.container}>
+                {dashboardError && (<Alert severity="error" sx={{py: 4}}>
+                        <AlertTitle>
+                            {dashboardError}
+                        </AlertTitle>
+                    </Alert>)}
                 <Stack direction="column" spacing={4}>
                     <Box>
                         <Typography mb={4} variant="h4">Requests</Typography>
@@ -26,7 +45,7 @@ const DashboardPage = () => {
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.request?.pending}
                                         </Typography>
                                         <Typography variant="body2" align="center">
                                             Pending
@@ -39,7 +58,7 @@ const DashboardPage = () => {
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.request?.completed}
                                         </Typography>
                                         <Typography variant="body2" align="center">
                                             Completed
@@ -52,10 +71,10 @@ const DashboardPage = () => {
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.request?.delivered}
                                         </Typography>
                                         <Typography variant="body2" align="center">
-                                            Sent
+                                            Delivered
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -66,11 +85,11 @@ const DashboardPage = () => {
                     <Box>
                         <Typography mb={4} variant="h4">Payments</Typography>
                         <Grid container={true} spacing={3}>
-                            <Grid item={true} xs={12} md={6}>
+                            <Grid item={true} xs={12} md={4}>
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.payment?.verified}
                                         </Typography>
                                         <Typography variant="body2" align="center">
                                             Verified
@@ -79,29 +98,11 @@ const DashboardPage = () => {
                                 </Card>
                             </Grid>
 
-                            <Grid item={true} xs={12} md={6}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Pending
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </Box>
-
-                    <Box>
-                        <Typography mb={4} variant="h4">Birth Certificates</Typography>
-                        <Grid container={true} spacing={3}>
                             <Grid item={true} xs={12} md={4}>
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.payment?.pending}
                                         </Typography>
                                         <Typography variant="body2" align="center">
                                             Pending
@@ -114,23 +115,10 @@ const DashboardPage = () => {
                                 <Card elevation={1}>
                                     <CardContent>
                                         <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
+                                            {dashboard?.payment?.waived}
                                         </Typography>
                                         <Typography variant="body2" align="center">
-                                            Completed
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item={true} xs={12} md={4}>
-                                <Card elevation={1}>
-                                    <CardContent>
-                                        <Typography gutterBottom={true} variant="h2" align="center">
-                                            8
-                                        </Typography>
-                                        <Typography variant="body2" align="center">
-                                            Sent
+                                            Waived
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -139,8 +127,7 @@ const DashboardPage = () => {
                     </Box>
                 </Stack>
             </Container>
-        </Layout>
-    )
+        </Layout>)
 }
 
 export default DashboardPage;

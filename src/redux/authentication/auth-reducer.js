@@ -1,17 +1,11 @@
 import {AUTH_ACTION_TYPES} from "./auth-action-types";
 
 const INITIAL_STATE = {
-    authData: {
-        name: 'Stanley Hayford',
-        email: 'dev.stanley.hayford@gmail.com',
-        phone: '+233270048319',
-        username: 'sahayford',
-        status: 'active',
-        createdAt: new Date(2022, 2, 2)
-    },
+    authData: {},
     authLoading: false,
     authError: null,
-    token: null
+    token: null,
+    splashLoading: false
 }
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -194,14 +188,14 @@ const authReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 authError: null,
-                authLoading: true
+                splashLoading: true
             }
 
         case AUTH_ACTION_TYPES.GET_PROFILE_SUCCESS:
             return {
                 ...state,
                 authError: null,
-                authLoading: false,
+                splashLoading: false,
                 token: action.payload.token,
                 authData: action.payload.data
             }
@@ -209,8 +203,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
         case AUTH_ACTION_TYPES.GET_PROFILE_FAIL:
             return {
                 ...state,
-                authError: action.payload,
-                authLoading: false,
+                authError: null,
+                splashLoading: false,
                 authData: null
             }
 
@@ -226,9 +220,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 authError: null,
-                authLoading: false,
-                token: action.payload.token,
-                authData: action.payload.data
+                authLoading: false
             }
 
         case AUTH_ACTION_TYPES.VERIFY_ACCOUNT_FAIL:

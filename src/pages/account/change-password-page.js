@@ -131,7 +131,7 @@ const ChangePasswordPage = () => {
                 <Divider variant="fullWidth" light={true} sx={{my: 2}}/>
                 <Grid container={true}>
                     <Grid item={true} xs={12} md={6} lg={4}>
-                        <Card elevation={1}>
+                        <Card elevation={0}>
                             {authLoading && <LinearProgress variant="query" color="secondary"/>}
                             <CardContent>
                                 {authError && (<Alert sx={{my: 3}} severity="error" color="error" variant="standard">

@@ -40,7 +40,8 @@ const LoginPage = () => {
                 objectFit: 'cover',
                 objectPosition: 'center',
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                maxHeight: '100vh'
             }
         }
     });
@@ -86,7 +87,8 @@ const LoginPage = () => {
                 sx={{
                     display: 'flex',
                     maxWidth: '100%',
-                    minHeight: '100vh',
+                    maxHeight: '100vh',
+                    height: '100vh',
                     flexDirection: {
                         xs: 'column',
                         md: 'row'
@@ -105,7 +107,7 @@ const LoginPage = () => {
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                    <Container maxWidth="sm" sx={{my: 3}}>
+                    <Container maxWidth="sm">
                         <Typography
                             sx={{
                                 color: 'secondary.main',
@@ -115,11 +117,11 @@ const LoginPage = () => {
                             gutterBottom={true}
                             align="center"
                             variant="h4">
-                            Birth & Death Registry
+                            Birth Registry
                         </Typography>
                         {
                             authError && (
-                                <Alert sx={{my: 3}} severity="error" color="error" variant="standard">
+                                <Alert sx={{my: 1}} severity="error" color="error" variant="standard">
                                     <AlertTitle>{authError}</AlertTitle>
                                 </Alert>
                             )

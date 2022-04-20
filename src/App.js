@@ -3,9 +3,7 @@ import './App.css';
 import DashboardPage from "./pages/dashboard/dashboard-page";
 import {THEMES} from "./utils/themes";
 import {ThemeProvider} from "@mui/styles";
-import AdminsPage from "./pages/admins/admins-page";
 import RequestsPage from "./pages/requests/requests-page";
-import BirthCertificatesPage from "./pages/birth-certificates/birth-certificates-page";
 import PaymentsPage from "./pages/payments/payments-page";
 import ProfilePage from "./pages/account/profile-page";
 import LoginPage from "./pages/authentication/login-page";
@@ -14,6 +12,11 @@ import ResetPasswordPage from "./pages/authentication/reset-password-page";
 import EditProfilePage from "./pages/account/edit-profile-page";
 import ChangePasswordPage from "./pages/account/change-password-page";
 import {CssBaseline} from "@mui/material";
+import RequestDetailPage from "./pages/requests/request-detail-page";
+import RequireAuth from "./components/shared/require-auth";
+import ResetSuccessAcknowledgmentPage from "./components/shared/acknowledgment";
+import VerifyAccountPage from "./pages/authentication/verify-account-page";
+import RegistrationAcknowledgmentPage from "./pages/authentication/registration-acknowledgment-page";
 
 function App() {
 
@@ -21,27 +24,34 @@ function App() {
         <ThemeProvider theme={THEMES.darkTheme}>
             <CssBaseline/>
             <Routes>
-                <Route element={<DashboardPage/>} path="/"/>
+                <Route element={
+                    <RequireAuth>
+                        <DashboardPage/>
+                    </RequireAuth>
+                } path="/"/>
 
-                <Route element={<AdminsPage/>} path="/admins"/>
+                <Route element={<RequireAuth><RequestsPage/></RequireAuth>} path="/requests"/>
+                <Route element={<RequireAuth><RequestDetailPage/></RequireAuth>} path="/requests/:requestID"/>
 
-                <Route element={<RequestsPage/>} path="/requests"/>
+                <Route element={<RequireAuth><PaymentsPage/></RequireAuth>} path="/payments"/>
 
-                <Route element={<BirthCertificatesPage/>} path="/birth-certificates"/>
+                <Route element={<RequireAuth><ProfilePage/></RequireAuth>} path="/profile"/>
 
-                <Route element={<PaymentsPage/>} path="/payments"/>
+                <Route element={<RequireAuth><EditProfilePage/></RequireAuth>} path="/edit-profile"/>
 
-                <Route element={<ProfilePage/>} path="/profile"/>
-
-                <Route element={<EditProfilePage/>} path="/edit-profile"/>
-
-                <Route element={<ChangePasswordPage/>} path="/change-password"/>
+                <Route element={<RequireAuth><ChangePasswordPage/></RequireAuth>} path="/change-password"/>
 
                 <Route element={<LoginPage/>} path="/auth/login"/>
 
+                <Route element={<ResetSuccessAcknowledgmentPage/>} path="/reset-password/acknowledgment/success"/>
+
                 <Route element={<ForgotPasswordPage/>} path="/auth/forgot-password"/>
 
-                <Route element={<ResetPasswordPage/>} path="/auth/reset-password"/>
+                <Route element={<VerifyAccountPage/>} path="/auth/verify/:token"/>
+
+                <Route element={<RegistrationAcknowledgmentPage/>} path="/auth/verify/acknowledgment/success"/>
+
+                <Route element={<ResetPasswordPage/>} path="/auth/reset-password/:token"/>
             </Routes>
         </ThemeProvider>
     );

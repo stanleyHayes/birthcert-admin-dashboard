@@ -12,6 +12,7 @@ const SidebarLink = ({active, path, label, icon}) => {
     const handleClick = () => {
         navigate(path);
         dispatch(UI_ACTION_CREATORS.changeActivePath(path));
+        dispatch(UI_ACTION_CREATORS.closeSidebar());
     }
 
     return (

@@ -10,7 +10,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow,
+    TableRow, Tooltip,
     Typography
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
@@ -18,9 +18,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {Alert, AlertTitle} from "@mui/lab";
 import {Edit, Visibility} from "@mui/icons-material";
 import moment from "moment";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {selectRequest} from "../../redux/requests/request-reducer";
 import {REQUEST_ACTION_CREATORS} from "../../redux/requests/request-action-creators";
+import {selectAuth} from "../../redux/authentication/auth-reducer";
+import {Link} from "react-router-dom";
+import UpdateRequestDialog from "../../components/dialogs/update/update-request-dialog";
+import {orange} from "@mui/material/colors";
 
 const RequestsPage = () => {
 
@@ -30,35 +34,37 @@ const RequestsPage = () => {
         }
     });
 
+    const [selectedRequest, setSelectedRequest] = useState(null);
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const {authToken} = useSelector(selectAuth);
+
     useEffect(() => {
-        dispatch(REQUEST_ACTION_CREATORS.getRequests());
-    }, [dispatch]);
+        dispatch(REQUEST_ACTION_CREATORS.getRequests(authToken));
+    }, [authToken, dispatch]);
+
     const {requests, requestLoading, requestError} = useSelector(selectRequest);
 
     return (
         <Layout>
-            {requestLoading && <LinearProgress variant="query" color="primary"/>}
+            {requestLoading && <LinearProgress variant="query" color="secondary"/>}
             <Container className={classes.container}>
                 {requestError && (
                     <Alert severity="error" sx={{py: 4}}>
                         <AlertTitle>
-                            Error
+                            {requestError}
                         </AlertTitle>
-                        <Typography align="center" variant="body2">{requestError}</Typography>
                     </Alert>
                 )}
 
                 <Grid my={4} container={true} justifyContent="space-between" alignItems="center" spacing={2}>
                     <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h4">Requests</Typography>
-                    </Grid>
-                    <Grid item={true} xs={12} md="auto">
-                        <Typography variant="h5">{requests.length}</Typography>
+                        <Typography variant="h4">Requests({requests.length})</Typography>
                     </Grid>
                 </Grid>
+
                 {requests && requests.length === 0 ? (
                     <Box sx={{py: 4}}>
                         <TableContainer component={Paper} elevation={0}>
@@ -111,8 +117,38 @@ const RequestsPage = () => {
                                             <TableCell>{request.status}</TableCell>
                                             <TableCell>
                                                 <Grid container={true} alignItems="center" spacing={1}>
-                                                    <Grid item={true}><Visibility fontSize="small"/></Grid>
-                                                    <Grid item={true}><Edit fontSize="small"/></Grid>
+                                                    <Grid item={true}>
+                                                        <Link style={{textDecoration: 'none'}}
+                                                              to={`/requests/${request._id}`}>
+                                                            <Tooltip title="View request detail">
+                                                                <Visibility
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        backgroundColor: orange[50],
+                                                                        borderRadius: 1,
+                                                                        padding: 0.4,
+                                                                        color: orange[800]
+                                                                    }}
+                                                                    color="secondary"
+                                                                    fontSize="small"
+                                                                />
+                                                            </Tooltip>
+                                                        </Link>
+                                                    </Grid>
+                                                    <Grid item={true}>
+                                                        <Tooltip title="Update request">
+                                                            <Edit color="secondary"
+                                                                  sx={{
+                                                                      cursor: 'pointer',
+                                                                      backgroundColor: orange[50],
+                                                                      borderRadius: 1,
+                                                                      padding: 0.4,
+                                                                      color: orange[800]
+                                                                  }}
+                                                                  onClick={() => setSelectedRequest(request)}
+                                                                  fontSize="small"/>
+                                                        </Tooltip>
+                                                    </Grid>
                                                 </Grid>
                                             </TableCell>
                                         </TableRow>
@@ -121,6 +157,14 @@ const RequestsPage = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                )}
+
+                {Boolean(selectedRequest) && (
+                    <UpdateRequestDialog
+                        request={selectedRequest}
+                        open={Boolean(selectedRequest)}
+                        handleClose={() => setSelectedRequest(null)}
+                    />
                 )}
             </Container>
         </Layout>

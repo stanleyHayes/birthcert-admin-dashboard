@@ -70,7 +70,7 @@ const updateRequest = (token, id, request) => {
             dispatch(updateRequestRequest());
             const response = await axios({
                 method: 'PUT',
-                url: `${CONSTANTS.SERVER_BASE_URL}/payments/${id}`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/requests/${id}`,
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
@@ -106,7 +106,7 @@ const getRequestFailure = message => {
     }
 }
 
-const getRequest = token => {
+const getRequest = (token, ID) => {
     return async dispatch => {
         try {
             dispatch(getRequestRequest());
@@ -115,10 +115,10 @@ const getRequest = token => {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                url: `${CONSTANTS.SERVER_BASE_URL}/requests/`,
+                url: `${CONSTANTS.SERVER_BASE_URL}/requests/${ID}`,
             });
-            const {data, count} = response.data;
-            dispatch(getRequestSuccess(data, count));
+            const {data} = response.data;
+            dispatch(getRequestSuccess(data));
         }catch (e) {
             const {message} = e.response.data.error;
             dispatch(getRequestFailure(message));

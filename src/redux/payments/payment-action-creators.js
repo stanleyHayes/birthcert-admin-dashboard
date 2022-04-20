@@ -33,9 +33,8 @@ const getPayments = token => {
                 },
                 url: `${CONSTANTS.SERVER_BASE_URL}/payments/`,
             });
-            const {data, totalPayments} = await response.data;
-            console.log(data, totalPayments, 'data', 'totalPayments')
-            dispatch(getPaymentsSuccess(data, totalPayments));
+            const {data, count} = await response.data;
+            dispatch(getPaymentsSuccess(data, count));
         }catch (e) {
             const {message} = e.response.data;
             dispatch(getPaymentsFailure(message));

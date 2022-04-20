@@ -33,8 +33,8 @@ const signIn = (user, navigate, location) => {
             });
             const {data, token, message} = response.data;
             dispatch(signInSuccess(data, token, message));
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_TOKEN_KEY, token);
-            localStorage.setItem(CONSTANTS.WINDY_CRAFT_ADMIN_AUTH_KEY, JSON.stringify(data));
+            localStorage.setItem(CONSTANTS.BIRTH_REGISTRY_ADMIN_TOKEN_KEY, token);
+            localStorage.setItem(CONSTANTS.BIRTH_REGISTRY_ADMIN_AUTH_KEY, JSON.stringify(data));
             if(location?.state?.path){
                 navigate(location.state.path, {replace: true})
             }else {
@@ -74,7 +74,7 @@ const forgotPassword = user => {
             dispatch(forgotPasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/forgot-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/forgot`,
                 data: user
             });
             const {data, message} = response.data;
@@ -107,17 +107,18 @@ const resetPasswordFail = message => {
     }
 }
 
-const resetPassword = user => {
+const resetPassword = (user, token, navigate) => {
     return async dispatch => {
         try {
             dispatch(resetPasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/reset-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/reset/${token}`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(resetPasswordSuccess(data, message));
+            navigate('/reset-password/acknowledgment/success');
         } catch (e) {
             const {message} = e.response.data.error;
             dispatch(resetPasswordFail(message));
@@ -152,7 +153,7 @@ const changePassword = user => {
             dispatch(changePasswordRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/change-password`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/password/change`,
                 data: user
             });
             const {data, message} = response.data;
@@ -302,7 +303,7 @@ const getProfileSuccess = (data, token) => {
 
 const getProfileFail = message => {
     return {
-        type: AUTH_ACTION_TYPES.SIGN_IN_FAIL,
+        type: AUTH_ACTION_TYPES.GET_PROFILE_FAIL,
         payload: message
     }
 }
@@ -350,19 +351,20 @@ const verifyAccountFail = message => {
     }
 }
 
-const verifyAccount = user => {
+const verifyAccount = (user, token, navigate) => {
     return async dispatch => {
         try {
             dispatch(verifyAccountRequest());
             const response = await axios({
                 method: 'POST',
-                url: `${CONSTANTS.URL_BASE_SERVER}/auth/login`,
+                url: `${CONSTANTS.URL_BASE_SERVER}/auth/profile/verify/${token}`,
                 data: user
             });
             const {data, message} = response.data;
             dispatch(verifyAccountSuccess(data, message));
+            navigate('/auth/verify/acknowledgment/success');
         } catch (e) {
-            const {message} = e.response.data.error;
+            const {message} = e.response.data;
             dispatch(verifyAccountFail(message));
         }
     }

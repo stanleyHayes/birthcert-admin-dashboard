@@ -42,4 +42,4 @@ const getDashboard = token => {
     }
 }
 
-const DASHBOARD_ACTION_CREATORS = {getDashboard};
+export const DASHBOARD_ACTION_CREATORS = {getDashboard};
