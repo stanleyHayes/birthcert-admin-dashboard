@@ -1,13 +1,11 @@
 import {
     Alert,
     AlertTitle,
-    Avatar,
     Box,
     Card,
     CardContent,
     CircularProgress,
     Container,
-    Divider,
     Grid,
     LinearProgress,
     TextField,
