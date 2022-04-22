@@ -111,7 +111,8 @@ const RequestsPage = () => {
                                                                         backgroundColor: orange[50],
                                                                         borderRadius: 1,
                                                                         padding: 0.4,
-                                                                        color: orange[800]
+                                                                        color: orange[800],
+                                                                        fontSize: 32
                                                                     }}
                                                                     color="secondary"
                                                                     fontSize="small"
@@ -127,7 +128,8 @@ const RequestsPage = () => {
                                                                       backgroundColor: orange[50],
                                                                       borderRadius: 1,
                                                                       padding: 0.4,
-                                                                      color: orange[800]
+                                                                      color: orange[800],
+                                                                      fontSize: 32
                                                                   }}
                                                                   onClick={() => setSelectedRequest(request)}
                                                                   fontSize="small"/>
