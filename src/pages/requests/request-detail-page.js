@@ -54,13 +54,13 @@ const RequestDetailPage = () => {
                     </Grid>
                     <Grid item={true} xs={12} md="auto">
                         <Button
-                            sx={{color: 'white'}}
+                            sx={{color: 'secondary.main'}}
                             onClick={() => navigate(-1)}
-                            variant="contained"
-                            startIcon={<ChevronLeft sx={{color: 'white'}}/>}
+                            variant="text"
+                            startIcon={<ChevronLeft sx={{color: 'secondary.main'}}/>}
                             fullWidth={true}
                             disableElevation={true}
-                            size="medium"
+                            size="large"
                             color="secondary">
                             Back
                         </Button>
