@@ -37,7 +37,7 @@ const RequestDetailPage = () => {
     return (
         <Layout>
             {requestLoading && <LinearProgress variant="query" color="secondary"/>}
-            <Container>
+            <Container sx={{my: 8}}>
 
                 {
                     requestError &&
@@ -48,11 +48,10 @@ const RequestDetailPage = () => {
                     )
                 }
 
-                <Typography variant="h4">Request Detail</Typography>
-
-                <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
-
                 <Grid container={true} justifyContent="space-between" spacing={2}>
+                    <Grid item={true} xs={12} md="auto">
+                        <Typography variant="h4">Request Detail</Typography>
+                    </Grid>
                     <Grid item={true} xs={12} md="auto">
                         <Button
                             sx={{color: 'white'}}
@@ -358,11 +357,51 @@ const RequestDetailPage = () => {
                                 </Box>
                             </CardContent>
                         </Card>
+                        <Card elevation={1} variant="elevation">
+                            {requestLoading && <LinearProgress variant="query" color="primary"/>}
+                            <CardContent>
+
+                                <Typography
+                                    gutterBottom={true}
+                                    variant="h5">
+                                    Contact
+                                </Typography>
+
+                                <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
+
+                                <Box mb={2}>
+                                    <Typography gutterBottom={true} variant="body2">
+                                        Name
+                                    </Typography>
+                                    <Typography gutterBottom={true} variant="h6">
+                                        {requestDetail && requestDetail.contact_name}
+                                    </Typography>
+                                </Box>
+
+                                <Box mb={2}>
+                                    <Typography gutterBottom={true} variant="body2">
+                                        Email
+                                    </Typography>
+                                    <Typography gutterBottom={true} variant="h6">
+                                        {requestDetail && requestDetail.contact_email}
+                                    </Typography>
+                                </Box>
+
+                                <Box mb={2}>
+                                    <Typography gutterBottom={true} variant="body2">
+                                        Phone
+                                    </Typography>
+                                    <Typography gutterBottom={true} variant="h6">
+                                        {requestDetail && requestDetail.contact_phone}
+                                    </Typography>
+                                </Box>
+                            </CardContent>
+                        </Card>
                     </Grid>
 
                     {requestDetail && requestDetail.variant === 'baptism' ? (
                         <Grid item={true} xs={12} md={6}>
-                            <Card elevation={1} variant="elevation">
+                            <Card sx={{mb: 2}} elevation={1} variant="elevation">
                                 {requestLoading && <LinearProgress variant="query" color="primary"/>}
                                 <CardContent>
                                     <Box>
@@ -521,52 +560,6 @@ const RequestDetailPage = () => {
                         </Grid>
                     )}
                 </Grid>
-
-                <Grid sx={{mb: 2}} container={true} spacing={2}>
-                    <Grid item={true} xs={12} md={6}>
-                        <Card elevation={1} variant="elevation">
-                            {requestLoading && <LinearProgress variant="query" color="primary"/>}
-                            <CardContent>
-
-                                <Typography
-                                    gutterBottom={true}
-                                    variant="h5">
-                                    Contact
-                                </Typography>
-
-                                <Divider sx={{my: 2}} light={true} variant="fullWidth"/>
-
-                                <Box mb={2}>
-                                    <Typography gutterBottom={true} variant="body2">
-                                        Name
-                                    </Typography>
-                                    <Typography gutterBottom={true} variant="h6">
-                                        {requestDetail && requestDetail.contact_name}
-                                    </Typography>
-                                </Box>
-
-                                <Box mb={2}>
-                                    <Typography gutterBottom={true} variant="body2">
-                                        Email
-                                    </Typography>
-                                    <Typography gutterBottom={true} variant="h6">
-                                        {requestDetail && requestDetail.contact_email}
-                                    </Typography>
-                                </Box>
-
-                                <Box mb={2}>
-                                    <Typography gutterBottom={true} variant="body2">
-                                        Phone
-                                    </Typography>
-                                    <Typography gutterBottom={true} variant="h6">
-                                        {requestDetail && requestDetail.contact_phone}
-                                    </Typography>
-                                </Box>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
-
             </Container>
         </Layout>
     )
