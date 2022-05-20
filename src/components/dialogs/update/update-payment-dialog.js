@@ -57,16 +57,16 @@ const UpdatePaymentDialog = ({open, handleClose, payment}) => {
                     <Stack direction="column" spacing={2}>
                         <Select
                             onChange={handleChange}
-                            label="Pending"
+                            label="Status"
                             variant="outlined"
                             size="medium"
                             name="status"
                             fullWidth={true}
                             value={status}>
                             <MenuItem value="">Select Status</MenuItem>
-                            <MenuItem value="pending">Pending</MenuItem>
-                            <MenuItem value="confirmed">Confirmed</MenuItem>
-                            <MenuItem value="waived">Waived</MenuItem>
+                            <MenuItem value="Pending">Pending</MenuItem>
+                            <MenuItem value="Confirmed">Confirmed</MenuItem>
+                            <MenuItem value="Waived">Waived</MenuItem>
                         </Select>
                     </Stack>
                 </form>
